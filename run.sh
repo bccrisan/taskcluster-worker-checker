@@ -11,3 +11,11 @@ hosts=${@:-$(echo rejh{1,2}.srv.releng.{mdc1,mdc2}.mozilla.com)}
 for host in ${hosts}; do
     ssh "${host}" "uptime"
 done
+
+echo "Restart Script starting in 10 seconds"
+sleep 7s
+
+echo "Restart Script starting in 3 seconds"
+sleep 3s
+
+python3 modules/ssh_restart_osx.py
