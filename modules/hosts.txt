@@ -1,3 +1,3 @@
-root@t-yosemite-r7-039.test.releng.mdc2.mozilla.com
-root@t-yosemite-r7-040.test.releng.mdc2.mozilla.com
-root@t-yosemite-r7-041.test.releng.mdc2.mozilla.com
+t-yosemite-r7-225
+t-yosemite-r7-392
+t-yosemite-r7-398
