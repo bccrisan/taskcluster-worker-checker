@@ -15,6 +15,7 @@ mdc2_command = "w"
 reboot_command = "sudo reboot now"
 
 mdc1_fqdn = "root@{}.test.releng.mdc1.mozilla.com"
+mdc1_fqdn_no_root = "{}.test.releng.mdc1.mozilla.com"
 mdc2_fqdn = "root@{}.test.releng.mdc2.mozilla.com"
 
 rejh1 = "rejh1.srv.releng.mdc1.mozilla.com"
@@ -61,8 +62,8 @@ def question_loop():
                         if int(host[-3:]) <= int(mdc2_range[-1]):
                             try:
 
-                                hostkeytype = host_keys[mdc1_fqdn.format(host.split("\n")[0])].keys()[0]
-                                hostkey = host_keys[mdc1_fqdn.format(host.split("\n")[0])][hostkeytype]
+                                hostkeytype = host_keys[mdc1_fqdn_no_root.format(host.split("\n")[0])].keys()[0]
+                                hostkey = host_keys[mdc1_fqdn_no_root.format(host.split("\n")[0])][hostkeytype]
                                 ssh = paramiko.SSHClient()
                                 ssh.load_system_host_keys()
                                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
