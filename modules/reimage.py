@@ -28,7 +28,7 @@ def question_loop():
                                 ssh = paramiko.SSHClient()
                                 ssh.load_system_host_keys()
                                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                                ssh.connect(mdc1_fqdn.format(host.split("\n")[0]))
+                                ssh.connect(mdc1_fqdn.format(host.split("\n")[0]), key_filename="~/.ssh/id_rsa_mozilla.pem")
                                 stdin, stdout, stderr = ssh.exec_command(mdc1_command)
                                 print(stdout.read().decode())
                                 ssh.close()
