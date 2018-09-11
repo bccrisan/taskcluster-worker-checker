@@ -60,8 +60,9 @@ def question_loop():
                     elif reply[:1] == "r":
                         if int(host[-3:]) <= int(mdc2_range[-1]):
                             try:
-                                hostkeytype = host_keys[host].keys()[0]
-                                hostkey = host_keys[host][hostkeytype]
+
+                                hostkeytype = host_keys[mdc1_fqdn.format(host.split("\n")[0])].keys()[0]
+                                hostkey = host_keys[mdc1_fqdn.format(host.split("\n")[0])][hostkeytype]
                                 ssh = paramiko.SSHClient()
                                 ssh.load_system_host_keys()
                                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
