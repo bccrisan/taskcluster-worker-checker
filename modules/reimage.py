@@ -58,6 +58,7 @@ def question_loop():
                                 ssh = paramiko.SSHClient()
                                 ssh.load_system_host_keys()
                                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                                ssh.load_system_host_keys()
                                 ssh.connect(rejh1)
                                 stdin, stdout, stderr = ssh.exec_command("{} '{}'".format(mdc1_fqdn.format(host.split("\n")[0]) ,reboot_command))
                                 print(stdout.read().decode())
