@@ -1,4 +1,6 @@
 import paramiko
+import os
+import socket
 
 data = {"username": "danut",
         "hostname": "192.168.118.200",
@@ -17,6 +19,9 @@ mdc2_fqdn = "root@{}.test.releng.mdc2.mozilla.com"
 
 rejh1 = "rejh1.srv.releng.mdc1.mozilla.com"
 rejh2 = "rejh1.srv.releng.mdc2.mozilla.com"
+
+host_keys = paramiko.util.load_host_keys(os.path.expanduser('~/.ssh/known_hosts'))
+
 
 def question_loop():
     with open("hosts.txt") as hosts:
@@ -55,11 +60,13 @@ def question_loop():
                     elif reply[:1] == "r":
                         if int(host[-3:]) <= int(mdc2_range[-1]):
                             try:
+                                hostkeytype = host_keys[host].keys()[0]
+                                hostkey = host_keys[host][hostkeytype]
                                 ssh = paramiko.SSHClient()
                                 ssh.load_system_host_keys()
                                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
                                 ssh.load_system_host_keys()
-                                ssh.connect(rejh1)
+                                ssh.connect(hostkey, gss_host=socket.getfqdn(rejh1), gss_auth=True, gss_kex=True)
                                 stdin, stdout, stderr = ssh.exec_command("{} '{}'".format(mdc1_fqdn.format(host.split("\n")[0]) ,reboot_command))
                                 print(stdout.read().decode())
                                 ssh.close()
