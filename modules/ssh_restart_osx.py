@@ -3,7 +3,7 @@
 import subprocess
 import sys
 
-OSX = "hosts.txt"
+OSX = "../hosts.txt"
 # Ports are handled in ~/.ssh/config since we use OpenSSH
 COMMAND = "uname -a"
 
@@ -21,3 +21,7 @@ def restart_osx():
                 print(sys.stderr, "ERROR: %s" % error)
             else:
                 print(result)
+
+
+if __name__ == "__main__":
+    restart_osx()
