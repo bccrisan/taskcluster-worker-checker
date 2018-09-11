@@ -12,8 +12,8 @@ mdc1_command = "ls"
 mdc2_command = "w"
 reboot_command = "sudo reboot now"
 
-mdc1_fqdn = "{}.test.releng.mdc1.mozilla.com"
-mdc2_fqdn = "{}.test.releng.mdc2.mozilla.com"
+mdc1_fqdn = "root@{}.test.releng.mdc1.mozilla.com"
+mdc2_fqdn = "root@{}.test.releng.mdc2.mozilla.com"
 
 def question_loop():
     with open("hosts.txt") as hosts:
