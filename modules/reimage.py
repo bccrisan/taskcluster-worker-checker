@@ -15,6 +15,9 @@ reboot_command = "sudo reboot now"
 mdc1_fqdn = "root@{}.test.releng.mdc1.mozilla.com"
 mdc2_fqdn = "root@{}.test.releng.mdc2.mozilla.com"
 
+rejh1 = "rejh1.srv.releng.mdc1.mozilla.com"
+rejh2 = "rejh1.srv.releng.mdc2.mozilla.com"
+
 def question_loop():
     with open("hosts.txt") as hosts:
             for host in hosts:
@@ -55,8 +58,8 @@ def question_loop():
                                 ssh = paramiko.SSHClient()
                                 ssh.load_system_host_keys()
                                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                                ssh.connect(mdc1_fqdn.format(host.split("\n")[0]))
-                                stdin, stdout, stderr = ssh.exec_command(reboot_command)
+                                ssh.connect(rejh1)
+                                stdin, stdout, stderr = ssh.exec_command("{} '{}'".format(mdc1_fqdn.format(host.split("\n")[0]) ,reboot_command))
                                 print(stdout.read().decode())
                                 ssh.close()
                             finally:
