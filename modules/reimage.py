@@ -12,8 +12,8 @@ mdc1_command = "ls"
 mdc2_command = "w"
 reboot_command = "sudo reboot now"
 
-mdc1_fqdn = "root@{}.test.releng.mdc1.mozilla.com"
-mdc2_fqdn = "root@{}.test.releng.mdc2.mozilla.com"
+mdc1_fqdn = "{}.test.releng.mdc1.mozilla.com"
+mdc2_fqdn = "{}.test.releng.mdc2.mozilla.com"
 
 def question_loop():
     with open("hosts.txt") as hosts:
@@ -28,7 +28,7 @@ def question_loop():
                                 ssh = paramiko.SSHClient()
                                 ssh.load_system_host_keys()
                                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                                ssh.connect(mdc2_fqdn.format(host.split("\n")))
+                                ssh.connect(mdc1_fqdn.format(host.split("\n")[0]))
                                 stdin, stdout, stderr = ssh.exec_command(mdc1_command)
                                 print(stdout.read().decode())
                                 ssh.close()
@@ -40,7 +40,7 @@ def question_loop():
                                 ssh = paramiko.SSHClient()
                                 ssh.load_system_host_keys()
                                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                                ssh.connect(mdc1_fqdn.format(host.split("\n")))
+                                ssh.connect(mdc2_fqdn.format(host.split("\n")[0]))
                                 stdin, stdout, stderr = ssh.exec_command(mdc2_command)
                                 print(stdout.read().decode())
                                 ssh.close()
@@ -55,7 +55,7 @@ def question_loop():
                                 ssh = paramiko.SSHClient()
                                 ssh.load_system_host_keys()
                                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                                ssh.connect(mdc2_fqdn.format(host.split("\n")))
+                                ssh.connect(mdc1_fqdn.format(host.split("\n")[0]))
                                 stdin, stdout, stderr = ssh.exec_command(reboot_command)
                                 print(stdout.read().decode())
                                 ssh.close()
@@ -67,7 +67,7 @@ def question_loop():
                                 ssh = paramiko.SSHClient()
                                 ssh.load_system_host_keys()
                                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                                ssh.connect(mdc1_fqdn.format(host.split("\n")))
+                                ssh.connect(mdc2_fqdn.format(host.split("\n")[0]))
                                 stdin, stdout, stderr = ssh.exec_command(reboot_command)
                                 print(stdout.read().decode())
                                 ssh.close()
